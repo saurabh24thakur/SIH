@@ -9,7 +9,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 
-export const serverURL="http://localhost:5000";
+
 
 export default function App() {
   const location = useLocation();

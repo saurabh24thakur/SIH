@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
-import { serverURL } from "../App"; // replace with your backend URL
+import { useAuth } from "../context/AuthContext";
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -26,13 +26,14 @@ export default function SignUp() {
     try {
       setLoading(true);
       const res = await axios.post(
-        `${serverURL}/api/auth/signup`,
+        "/api/auth/signup",
         { username, email, password },
         { withCredentials: true }
       );
       console.log("Signup successful:", res.data);
+      login(res.data.user);
       setError("");
-      navigate("/signin"); // redirect after signup
+      navigate("/dashboard"); // redirect after signup
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
     } finally {
@@ -41,11 +42,11 @@ export default function SignUp() {
   };
 
   const handleGoogleSignup = () => {
-    window.location.href = `${serverURL}/api/auth/google`;
+    window.location.href = "/api/auth/google";
   };
 
   const handleGithubSignup = () => {
-    window.location.href = `${serverURL}/api/auth/github`;
+    window.location.href = "/api/auth/github";
   };
 
   return (

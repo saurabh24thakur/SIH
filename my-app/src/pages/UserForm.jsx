@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { serverURL } from "../App";
+
 export default function UserForm({ onComplete }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -29,7 +29,7 @@ export default function UserForm({ onComplete }) {
     setError(null);
 
     try {
-      const res = await axios.post(`${serverURL}/api/user/profile`, formData, {
+      const res = await axios.post("/api/user/profile", formData, {
         withCredentials: true,
       });
 

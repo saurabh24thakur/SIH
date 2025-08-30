@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { serverURL } from "../App";
+import { useAuth } from "../context/AuthContext";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,14 +19,13 @@ export default function SignIn() {
 
     try {
       const res = await axios.post(
-        `${serverURL}/api/auth/login`,
+        "/api/auth/login",
         { email, password },
         { withCredentials: true } // ensures cookies sent if using session
       );
 
       console.log("Login successful:", res.data);
-
-      
+      login(res.data.user);
 
       // Redirect to dashboard or profile page
       navigate("/dashboard");
@@ -38,11 +38,11 @@ export default function SignIn() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${serverURL}/api/auth/google`;
+    window.location.href = "/api/auth/google";
   };
 
   const handleGithubLogin = () => {
-    window.location.href = `${serverURL}/api/auth/github`;
+    window.location.href = "/api/auth/github";
   };
 
   return (
