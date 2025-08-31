@@ -1,20 +1,33 @@
-// components/ImpactSection.jsx
+// components/About.jsx
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ImpactSection() {
+export default function About() {
   const cardsRef = useRef([]);
   const shapesRef = useRef([]);
 
-  const impacts = [
-    { icon: "💡", title: "Bridges Awareness Gap", description: "Gives students & parents clarity on careers, courses, and colleges." },
-    { icon: "🎓", title: "Boosts College Enrollment", description: "Promotes local institutions through smart discovery." },
-    { icon: "📈", title: "Reduces Dropouts", description: "Personalized guidance helps students stay on the right track." },
-    { icon: "🌍", title: "Equal Access for Rural Students", description: "Offline mode ensures inclusivity in low-connectivity areas." },
-    { icon: "👨‍🏫", title: "Empowers Teachers & Parents", description: "Acts as a support tool for better decision-making." },
+  const aboutPoints = [
+    {
+      icon: "🎯",
+      title: "Our Mission",
+      description:
+        "To guide students and professionals with clarity, helping them choose the right career path.",
+    },
+    {
+      icon: "🤝",
+      title: "Mentorship",
+      description:
+        "We connect learners with mentors and counselors who provide personalized guidance.",
+    },
+    {
+      icon: "📚",
+      title: "Resources",
+      description:
+        "Curated study materials, scholarship info, and real-world insights to boost success.",
+    },
   ];
 
   useEffect(() => {
@@ -52,32 +65,38 @@ export default function ImpactSection() {
 
   return (
     <section
-      id="impact"   // ✅ Added ID for smooth scroll navigation
-      className="relative w-full px-6 py-24 flex flex-col items-center overflow-hidden bg-black"
+      id="about"   // 👈 Added for smooth scroll
+      className="relative w-full px-6 py-24 flex flex-col items-center overflow-hidden bg-gradient-to-b from-[#201942] to-black"
     >
       <h2 className="text-5xl md:text-6xl font-extrabold text-[#bd5e2b] mb-6 text-center z-10">
-        Impact of CounselMate
+        About CounselMate
       </h2>
       <p className="text-white text-lg md:text-xl text-center max-w-3xl mb-16 z-10">
-        Personalized career guidance that bridges gaps, empowers students, and creates equal opportunities.
+        CounselMate is more than just a career guide. We provide mentorship,
+        resources, and opportunities that empower students and professionals
+        to build the future they deserve.
       </p>
 
       {/* Centered Cards */}
       <div className="flex flex-wrap justify-center gap-8 max-w-5xl w-full relative z-10">
-        {impacts.map((impact, idx) => (
+        {aboutPoints.map((point, idx) => (
           <div
             key={idx}
             ref={(el) => (cardsRef.current[idx] = el)}
             className="flex flex-col items-center gap-4 p-6 rounded-3xl bg-[#bd5e2b]/20 shadow-lg hover:scale-105 transition-transform cursor-pointer w-72"
           >
-            <div className="text-5xl text-[#bd5e2b]">{impact.icon}</div>
-            <h3 className="text-xl font-semibold text-white text-center">{impact.title}</h3>
-            <p className="text-white/80 text-center text-sm">{impact.description}</p>
+            <div className="text-5xl text-[#bd5e2b]">{point.icon}</div>
+            <h3 className="text-xl font-semibold text-white text-center">
+              {point.title}
+            </h3>
+            <p className="text-white/80 text-center text-sm">
+              {point.description}
+            </p>
           </div>
         ))}
       </div>
 
-      {/* Floating shapes with moving gradient */}
+      {/* Floating shapes */}
       <div
         ref={(el) => (shapesRef.current[0] = el)}
         className="absolute top-10 left-10 w-24 h-24 rounded-full blur-3xl animate-pulse"
